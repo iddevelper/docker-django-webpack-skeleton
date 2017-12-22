@@ -9,6 +9,7 @@ RUN bash -c 'if [ -n "$APTPROXY" ]; then echo "Acquire::HTTP::Proxy \"http://$AP
 ## Install dependencies
 RUN apt-get update \
     && apt-get --no-install-recommends install -y vim-tiny \
+    && apt-get install -my wget gnupg \
 
     # Install latest NodeJS + NPM
     && apt-get --no-install-recommends install -y curl ca-certificates apt-transport-https lsb-release \

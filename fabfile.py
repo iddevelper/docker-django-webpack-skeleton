@@ -36,6 +36,11 @@ def deploy():
 
 
 @roles('master')
+def build_deploy(only=False):
+    build(only)
+    deploy()
+
+@roles('master')
 def clear_cache():
     _production_env()
 
