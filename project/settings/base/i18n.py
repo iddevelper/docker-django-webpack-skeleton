@@ -2,7 +2,7 @@
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
 import os
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ru'#'en'
 
 USE_I18N = True
 USE_L10N = True
