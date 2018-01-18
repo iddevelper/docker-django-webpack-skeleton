@@ -90,7 +90,7 @@ class TestSkeleton(unittest.TestCase):
         rmtree(cls.tmpdir)
 
     def test_a_archive(self):
-        print 'Created %s' % self.zipfile.name
+        print('Created %s' % self.zipfile.name)
 
         zip = ZipFile(self.zipfile.name, 'w', zipfile.ZIP_DEFLATED)
         for root, dirs, files in os.walk('.'):
@@ -101,7 +101,7 @@ class TestSkeleton(unittest.TestCase):
         zip.close()
 
     def test_b_django_start_project(self):
-        print 'Temporary project name %s' % self.tmpdir
+        print('Temporary project name %s' % self.tmpdir)
 
         returncode = subprocess.call([
             'django-admin',
@@ -113,7 +113,7 @@ class TestSkeleton(unittest.TestCase):
             self.tmpdir
         ])
 
-        file(os.path.join(self.tmpdir, 'docker-compose.tests.yml'), 'wb').write(DOCKER_COMPOSE_EXTRA)
+        open(os.path.join(self.tmpdir, 'docker-compose.tests.yml'), 'wb').write(DOCKER_COMPOSE_EXTRA)
 
         assert returncode == 0
 
@@ -156,7 +156,7 @@ class TestSkeleton(unittest.TestCase):
 
 if __name__ == '__main__':
     if 'SERVER' not in os.environ or 'DOCKER_URL' not in os.environ:
-        print 'Missed SERVER in env variables. Example cmdline:\n' \
-              '># SERVER=user@ip.xx.xx.xx %s' % " ".join(sys.argv)
+        print('Missed SERVER in env variables. Example cmdline:\n' \
+              '># SERVER=user@ip.xx.xx.xx %s' % " ".join(sys.argv))
 
     pytest.main(['-srx', __file__] + sys.argv[1:])
