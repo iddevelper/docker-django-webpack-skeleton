@@ -11,7 +11,7 @@ WORKDIR /code
 ADD project/requirements.txt requirements.txt
 RUN pip install -r requirements.txt --no-cache-dir
 
-RUN echo "Europe/Moscow" > /etc/timezone
+RUN echo "Europe/Moscow" > /etc/timezone \
     && dpkg-reconfigure -f noninteractive tzdata
 
 EXPOSE 8000
