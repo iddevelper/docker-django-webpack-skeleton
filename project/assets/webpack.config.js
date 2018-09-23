@@ -2,15 +2,16 @@
 
 var webpack = require('webpack');
 
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var Clean = require('clean-webpack-plugin');
 
 module.exports = function (env) {
     env = env || {};
 
     var PRODUCTION = env.env == "production";
-
+    
     var config = {
+        mode: PRODUCTION ? 'production' : 'development',
         context: __dirname + '/frontend',
         entry: {
             main: './js/main',
@@ -35,25 +36,28 @@ module.exports = function (env) {
             poll: 500
         },
 
+        optimization: {
+            splitChunks: {
+              cacheGroups: {
+                styles: {
+                  name: 'styles',
+                  test: /\.(sa|sc|c)ss$/,
+                  chunks: 'all',
+                  enforce: true
+                }
+              }
+            }
+        },
+
         module: {
             rules: [
                 {
-                    test: /\.scss$/,
-
-                    use: ExtractTextPlugin.extract({
-                        use: [
-                            {loader: "css-loader", options: {sourceMap: true}},
-                            {loader: "resolve-url-loader"},
-                            {
-                                loader: "sass-loader",
-                                options: {
-                                    sourceMap: true,
-                                    outputStyle: 'expanded',
-                                    sourceComments: true
-                                }
-                            }
-                        ]
-                    })
+                    test: /\.(sa|sc|c)ss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        'css-loader',
+                        'sass-loader',
+                    ]
                 },
 
                 {
@@ -84,9 +88,7 @@ module.exports = function (env) {
 
             new webpack.NoEmitOnErrorsPlugin(),
 
-            new webpack.optimize.CommonsChunkPlugin({name: 'common', minChunks: 2}),
-
-            new ExtractTextPlugin({
+            new MiniCssExtractPlugin({
                 filename: "css/[name].css",
                 allChunks: true
             }),
