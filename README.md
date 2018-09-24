@@ -17,9 +17,15 @@ You can run local development environment with
 You can make a pull request if you like project and ready to help with documentation.
 
 Quick start:
-> docker-compose build 
-> docker-compose run manage migrate 
-> docker-compose run createsuperuser
+Init git:
+> git init
+> git add
+> git commit -m "init project"
+
+start Django:
+> docker-compose build
+> docker-compose run db 
+> docker-compose run manage migrate
 > docker-compose up
 
 What's New:
