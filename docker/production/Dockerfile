@@ -54,7 +54,8 @@ RUN cd /app/project/assets/ \
 
 RUN python manage.py collectstatic --noinput -v0
 
-ADD docker/production/nginx/nginx.conf /etc/nginx/sites-enabled/project
+ADD docker/production/nginx/nginx.conf /etc/nginx/nginx.conf
+ADD docker/production/nginx/project.conf /etc/nginx/sites-enabled/project
 ADD docker/production/nginx/conf.d/* /etc/nginx/conf.d/
 
 EXPOSE 80

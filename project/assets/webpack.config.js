@@ -3,6 +3,9 @@
 var webpack = require('webpack');
 
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 var Clean = require('clean-webpack-plugin');
 
 module.exports = function (env) {
@@ -101,8 +104,8 @@ module.exports = function (env) {
 
     if (PRODUCTION) {
         config.plugins.push(
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
+            new UglifyJsPlugin({
+                uglifyOptions: {
                     // don't show unreachable variables etc
                     warnings: false,
                     drop_console: true,
